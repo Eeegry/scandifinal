@@ -87,14 +87,15 @@
         const div = document.createElement('div')
         const input = document.createElement('input')
         const label = document.createElement('label')
-        
+        div.classList.add('form-group')
         label.setAttribute('for', field)
         label.textContent = `${field.charAt(0).toUpperCase()}${field.slice(1)}`
         input.setAttribute('type', 'text')
         input.setAttribute('id', field)
         form.appendChild(label)
         form.appendChild(input)
-        div.classList.add('form-group')
+        form.appendChild(div)
+        
       })
       return form
     }
