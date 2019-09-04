@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /scandifinal/
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ main.php?uri=$1 [QSA,L]
+php_value include_path '.;C:\xampp\php\PEAR;C:\xampp\htdocs\scandifinal'
