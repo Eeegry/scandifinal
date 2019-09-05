@@ -16,23 +16,17 @@ class product_add extends Controller{
     if (!isset($_POST["save"]) && empty($_POST["save"])) {
       echo "No";
     } else {  
-      $SKU = $_POST['SKU'];
-      $name = $_POST['name'];
+      $SKU      = $_POST['SKU'];
+      $name     = $_POST['name'];
       $category = $_POST['category']; 
-      $price = $_POST['price'];
-      $height = $_POST['height'];
-      $width = $_POST['width']; 
-      $length = $_POST['length'];
+      $price    = $_POST['price'];
+      $height   = $_POST['height'];
+      $width    = $_POST['width']; 
+      $length   = $_POST['length'];
            
       $product = new Product($SKU, $name, $category, $price);
       $furniture = new Furniture($SKU, $height, $width, $length);
       print_r($product);
-      
-
-      
-      
     }
   }
-
-  
 }

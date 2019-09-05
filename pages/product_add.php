@@ -14,7 +14,6 @@
 
 <div class="container">
         <div class="row justify-content-center">
-        <form id="form" method="post">
         <label>Category</label>
         <select id="product-add">
             <option value="">Please select the product</option>
@@ -22,6 +21,8 @@
             <option value="book">Book</option>
             <option value="furniture">Furniture</option>
         </select>
+        <form id="form" method="post">
+        
         </div>
         <input name="save" value="Save" type="submit" id="save">
         </form> 
@@ -47,7 +48,7 @@
         cleanForm()
         form.appendChild(productAdd)
         renderFields(persistentFields)
-        renderFields(fields[category])ф
+        renderFields(fields[category])
         form.appendChild(submitButton)
 
       }
@@ -71,6 +72,7 @@
         label.setAttribute('for', field)
         label.textContent = `${field.charAt(0).toUpperCase()}${field.slice(1)}`
         input.setAttribute('type', 'text')
+        input.setAttribute('name', field)
         input.setAttribute('id', field)
         input.classList.add('form-group')
         div.appendChild(label)
