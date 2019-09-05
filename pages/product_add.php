@@ -13,25 +13,8 @@
 <hr>
 
 <div class="container">
-    <div class="row justify-content-center">
-        <form method="post">
-        <div class="form-group">
-        <label>SKU</label>
-        <input type="text" name="SKU" class="form-control" 
-            value='' placeholder="Enter SKU">
-        </div>
-        <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" class="form-control" 
-            value="" placeholder="Enter name">
-        </div>
-        <div class="form-group">
-        <label>Price</label>
-        <input type="text" name="price" class="form-control"
-            value="" placeholder="Enter price">
-        </div> 
-        
-        <div class="form-group">
+        <div class="row justify-content-center">
+        <form id="form" method="post">
         <label>Category</label>
         <select id="product-add">
             <option value="">Please select the product</option>
@@ -40,16 +23,11 @@
             <option value="furniture">Furniture</option>
         </select>
         </div>
+        <input name="save" value="Save" type="submit" id="save">
         </form> 
 
-        <form id="form">
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" id='save' name="save">
-        </div>
-        </form>
-    
     <script>
-    //const persistentFields = ['sku', 'price', 'name']
+    const persistentFields = ['sku', 'price', 'name']
     const fields = {
       disc: ['size'],
       book: ['weight'],
@@ -59,43 +37,45 @@
     const form = document.getElementById('form')
     const submitButton = document.getElementById('save')
     window.addEventListener('DOMContentLoaded', () => {
-      cleanForm()
-      //renderFields(persistentFields)
       form.appendChild(submitButton)
     })
    
     productAdd.addEventListener('change', e => {
-      console.log('YEET')
       const category = e.target.value
- 
+  
       if (category) {
         cleanForm()
-        //renderFields(persistentFields)
-        renderFields(fields[category])
+        form.appendChild(productAdd)
+        renderFields(persistentFields)
+        renderFields(fields[category])ф
         form.appendChild(submitButton)
+
       }
     })
- 
+
     function cleanForm() {
       while (form.firstChild) {
         form.removeChild(form.firstChild)
       }
     }
  
+    
+ 
     function renderFields(fields) {
       fields.forEach(field => {
-        const div = document.createElement('div')
-        const input = document.createElement('input')
-        const label = document.createElement('label')
+        const div = document.createElement('div')     
         div.classList.add('form-group')
+        div.classList.add('col-md-4')
+        const label = document.createElement('label')
+        const input = document.createElement('input')
         label.setAttribute('for', field)
         label.textContent = `${field.charAt(0).toUpperCase()}${field.slice(1)}`
         input.setAttribute('type', 'text')
         input.setAttribute('id', field)
-        form.appendChild(label)
-        form.appendChild(input)
+        input.classList.add('form-group')
+        div.appendChild(label)
+        div.appendChild(input)
         form.appendChild(div)
-        
       })
       return form
     }
