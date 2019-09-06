@@ -11,7 +11,6 @@ class Furniture extends Product {
     {     
         $model = new Model();
         $model->addFurniture($SKU, $height, $width, $length);
-        echo "Furniture class has been created!";
 
         
     }

@@ -20,11 +20,6 @@ class Model {
     }
   }
     
-    
-    
-
-
-  
 
   public function getData()
   {
@@ -53,16 +48,16 @@ class Model {
     }
   }
 
-  public function addItem($SKU, $name, $category, $price)
+  public function addItem($SKU, $name, $price)
   {
     //insert into products (sku, name) VALUES (values)
-    $sql_query ="INSERT into products (SKU, name, category, price) VALUES ('$SKU', '$name', '$category', '$price');";
+    $sql_query ="INSERT into products (SKU, name, price) VALUES ('$SKU', '$name', '$price');";
     if (isset($_POST['save'])) {
       if ($this->connect->query($sql_query) === FALSE) {
           echo 'Error: '. $sql_query."<br>".$this->connect->error;
         }
         else {
-          echo 'Product saved successfully';
+          
       }
     }
   }
@@ -76,7 +71,6 @@ class Model {
           echo 'Error: '. $sql_query."<br>".$this->connect->error;
         }
         else {
-          echo 'Product saved successfully';
       }
     }
   }
@@ -84,13 +78,13 @@ class Model {
   public function addDisc($SKU, $size)
   {
     
-    $sql_query ="INSERT into disc (SKU, height, width, length) VALUES ('$SKU', '$size');";
+    $sql_query ="INSERT into disc (SKU, size) VALUES ('$SKU', '$size');";
     if (isset($_POST['save'])) {
       if ($this->connect->query($sql_query) === FALSE) {
           echo 'Error: '. $sql_query."<br>".$this->connect->error;
         }
         else {
-          echo 'Product saved successfully';
+
       }
     }
   }
@@ -99,13 +93,13 @@ class Model {
   public function addBook($SKU, $weight)
   {
     
-    $sql_query ="INSERT into book (SKU, height, width, length) VALUES ('$SKU', '$weight');";
+    $sql_query ="INSERT into book (SKU, weight) VALUES ('$SKU', '$weight');";
     if (isset($_POST['save'])) {
       if ($this->connect->query($sql_query) === FALSE) {
           echo 'Error: '. $sql_query."<br>".$this->connect->error;
         }
         else {
-          echo 'Product saved successfully';
+
       }
     }
   }
@@ -117,7 +111,6 @@ class Model {
     $sql_query ="DELETE from products WHERE SKU=$SKU;";
 
     if ($this->connect->query($sql_query) === TRUE) {
-        echo 'Product deleted successfully';
       }
       else {
         echo 'Error: '. $this->connect->error;

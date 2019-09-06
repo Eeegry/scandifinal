@@ -13,16 +13,15 @@
 <hr>
 
 <div class="container">
+        <form id="form" method="post">
         <div class="row justify-content-center">
         <label>Category</label>
-        <select id="product-add">
+        <select name="category" id="product-add">
             <option value="">Please select the product</option>
             <option value="disc">Disc</option>
             <option value="book">Book</option>
             <option value="furniture">Furniture</option>
         </select>
-        <form id="form" method="post">
-        
         </div>
         <input name="save" value="Save" type="submit" id="save">
         </form> 
