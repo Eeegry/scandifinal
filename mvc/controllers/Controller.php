@@ -7,6 +7,7 @@ class Controller {
 
   public $view;
   public $model;
+  
   public function __construct($view)
   {
     $this->view = $view;

@@ -23,33 +23,28 @@ class product_add extends Controller{
       $name     = $_POST['name'];
       $price    = $_POST['price'];
       $category = $_POST['category'];
-      //Furniture
-      //$height   = $_POST['height'];
-      //$width    = $_POST['width']; 
-      //$length   = $_POST['length'];
-      //Disc
-      //$size   = $_POST['size'];
-      //Book
-      //$weight   = $_POST['weight'];
-      
-      
+
       switch ($category) {
         case "furniture":
-                  $product = new Product($SKU, $name, $price);
+                  $product = new Product($SKU, $name, $price, $category);
                   $height   = $_POST['height'];
                   $width    = $_POST['width']; 
                   $length   = $_POST['length'];
                   $furniture = new Furniture($SKU, $height, $width, $length);
+                  break;
         case "disc":
-                  $product = new Product($SKU, $name, $price);
+                  $product = new Product($SKU, $name, $price, $category);
                   $size   = $_POST['size'];
                   $disc = new disc($SKU, $size);
+                  break;
         case "book":
-                  $product = new Product($SKU, $name, $price);
+                  $product = new Product($SKU, $name, $price, $category);
                   $weight   = $_POST['weight'];
                   $book = new Book($SKU, $weight);
+                  break;
         default:
-            echo "something went wrong!";
+                  echo "something went wrong!";
+                  break;
       }
 
       

@@ -6,10 +6,10 @@ include 'Furniture.php';
     public $category;
     public $price;
 
-    public function __construct($SKU, $name, $price)
+    public function __construct($SKU, $name, $price, $category)
     {
         $model = new Model();
-        $model->addItem($SKU, $name, $price);
+        $model->addItem($SKU, $name, $price, $category);
     }
 
    
