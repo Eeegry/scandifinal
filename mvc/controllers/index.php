@@ -11,7 +11,6 @@ class index extends Controller{
     $this->render_view('pages/index.php');
 
     $model = new Model();
-
     
     if (!isset($_POST["Ok"]) && empty($_POST["Ok"])) {
     } else {
@@ -32,9 +31,17 @@ class index extends Controller{
           $model->getBook();
           break;          
         default:
-              echo "";
-              break;
+          $model->getFurniture();
+          $model->getDisc();
+          $model->getBook();
+          break;
       }
     }
+
+    if (!isset($_POST["Ok"]) && empty($_POST["Ok"]) and (!isset($_POST["checkbox"]) && empty($_POST["checkbox"]))){
+    } else {
+      $model->deleteItem();
+    }
+
   }
 }

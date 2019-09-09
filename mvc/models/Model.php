@@ -83,7 +83,7 @@ class Model {
     $resultCheck = mysqli_num_rows($furniture_result);
     if ($resultCheck > 0) {
       while ($row = mysqli_fetch_assoc($result) and $furniture_row = mysqli_fetch_assoc($furniture_result)) {
-        echo '<input type="checkbox" id= '.$row['SKU'].'>';
+        echo '<input name="checkbox" type="checkbox" id= '.$row['SKU'].'>';
         echo $row['SKU'];
         echo '<br/>';
         echo $row['name'];
@@ -109,21 +109,13 @@ class Model {
     $sql_query_furniture = "SELECT * FROM book;";
     $furniture_result = mysqli_query($this->connect, $sql_query_furniture);
     $resultCheck = mysqli_num_rows($furniture_result);
-    if ($resultCheck > 0) {
-      while ($row = mysqli_fetch_assoc($result) and $furniture_row = mysqli_fetch_assoc($furniture_result)) {
-        echo '<input type="checkbox" id= '.$row['SKU'].'>';
-        echo $row['SKU'];
-        echo '<br/>';
-        echo $row['name'];
-        echo '<br/>';
-        echo $row['price'];
-        echo '<br/>';
-        echo $furniture_row['weight'];
-        echo '<br/>';
-        echo '<hr/>';
+    
+    $row = mysqli_fetch_assoc($result);
+    $furniture_row = mysqli_fetch_assoc($furniture_result);
+    print_r($result);
         
-      }
-    }  
+      
+     
   }
 
   public function getItem($SKU)
@@ -196,9 +188,9 @@ class Model {
   }
 
 
-  public function deleteItem($SKU)
+  public function deleteItem()
   {
-    //insert into products (sku, name) VALUES (values)
+
     $sql_query ="DELETE from products WHERE SKU=$SKU;";
 
     if ($this->connect->query($sql_query) === TRUE) {
