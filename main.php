@@ -13,7 +13,7 @@ require_once("routes/router.php");
     
 </head>
 <body>
-  <!-- TODO: Add header -->
+  
   <?php
     $router = new Router();
     $router->start();
