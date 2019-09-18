@@ -24,179 +24,45 @@ class Model {
   {
     $sql_query = "SELECT * FROM products;";
     $result = mysqli_query($this->connect, $sql_query);
-    $resultCheck = mysqli_num_rows($result);
-    if ($resultCheck > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        echo '<input type="checkbox" id= '.$row['SKU'].'>';
-        echo $row['SKU'];
-        echo '<br/>';
-        echo $row['name'];
-        echo '<br/>';
-        echo $row['price'];
-        echo '<br/>';
-        echo '<hr/>';
-      }
+    return $result;
+  }
+
+  public function addItem($item)
+  {
+    switch ($item['category']) {
+      case "furniture":
+                $product = new Furniture($item['sku'], $item['name'], $item['price'], $item['category'], $item['height'],$item['width'],$item['length']);
+                $sql_query = "INSERT INTO products(SKU, name, price, category, height, width, length) VALUES ('$product->sku', '$product->name', '$product->price', '$product->category', '$product->height', '$product->width', '$product->length');";
+                mysqli_query($this->connect, $sql_query);
+                break;
+      case "disc":
+                $product = new Disc($item['sku'], $item['name'], $item['price'], $item['category'], $item['size']);
+                $sql_query = "INSERT INTO products(SKU, name, price, category, size) VALUES ('$product->sku', '$product->name', '$product->price', '$product->category', '$product->size');";
+                mysqli_query($this->connect, $sql_query);
+                break;
+      case "book":
+                $product = new Book($item['sku'], $item['name'], $item['price'], $item['category'], $item['weight']);
+                $sql_query = "INSERT INTO products(SKU, name, price, category, weight) VALUES ('$product->sku', '$product->name', '$product->price', '$product->category', '$product->weight');";
+                mysqli_query($this->connect, $sql_query);
+                break;
+      default:
+                echo "something went wrong!";
+                break;
     }
   }
 
-  public function getFurniture()
+  public function filterData($category)
   {
-
-    $sql_query = "SELECT * FROM products WHERE category = 'furniture';";
+    $sql_query = "SELECT * FROM products WHERE category = '$category';";
     $result = mysqli_query($this->connect, $sql_query);
-    $resultCheck = mysqli_num_rows($result);
-
-    $sql_query_furniture = "SELECT * FROM furniture;";
-    $furniture_result = mysqli_query($this->connect, $sql_query_furniture);
-    $resultCheck = mysqli_num_rows($furniture_result);
-    if ($resultCheck > 0) {
-      while ($row = mysqli_fetch_assoc($result) and $furniture_row = mysqli_fetch_assoc($furniture_result)) {
-        echo '<input type="checkbox" id= '.$row['SKU'].'>';
-        echo $row['SKU'];
-        echo '<br/>';
-        echo $row['name'];
-        echo '<br/>';
-        echo $row['price'];
-        echo '<br/>';
-        echo $furniture_row['height'];
-        echo '<br/>';
-        echo $furniture_row['width'];
-        echo '<br/>';
-        echo $furniture_row['length'];
-        echo '<br/>';
-        echo '<hr/>';
-        
-      }
-    }  
+    return $result;
+    
   }
 
-
-  public function getDisc()
+  public function deleteItem($SKU)
   {
-
-    $sql_query = "SELECT * FROM products WHERE category = 'disc';";
+    $sql_query ="DELETE from products WHERE SKU='$SKU';";
     $result = mysqli_query($this->connect, $sql_query);
-    $resultCheck = mysqli_num_rows($result);
-
-    $sql_query_furniture = "SELECT * FROM disc;";
-    $furniture_result = mysqli_query($this->connect, $sql_query_furniture);
-    $resultCheck = mysqli_num_rows($furniture_result);
-    if ($resultCheck > 0) {
-      while ($row = mysqli_fetch_assoc($result) and $furniture_row = mysqli_fetch_assoc($furniture_result)) {
-        echo '<input name="checkbox" type="checkbox" id= '.$row['SKU'].'>';
-        echo $row['SKU'];
-        echo '<br/>';
-        echo $row['name'];
-        echo '<br/>';
-        echo $row['price'];
-        echo '<br/>';
-        echo $furniture_row['size'];
-        echo '<br/>';
-        echo '<hr/>';
-        
-      }
-    }  
-  }
-
-
-  public function getBook()
-  {
-
-    $sql_query = "SELECT * FROM products WHERE category = 'book';";
-    $result = mysqli_query($this->connect, $sql_query);
-    $resultCheck = mysqli_num_rows($result);
-
-    $sql_query_furniture = "SELECT * FROM book;";
-    $furniture_result = mysqli_query($this->connect, $sql_query_furniture);
-    $resultCheck = mysqli_num_rows($furniture_result);
-    
-    $row = mysqli_fetch_assoc($result);
-    $furniture_row = mysqli_fetch_assoc($furniture_result);
-    print_r($result);
-        
-      
-     
-  }
-
-  public function getItem($SKU)
-  {
-    $sql_query = "SELECT * FROM products WHERE SKU=$SKU;";
-    $result = mysqli_query($this->connect, $sql_query);
-    
-    $resultCheck = mysqli_num_rows($result);
-    
-    if ($resultCheck < 1) {
-        return "No products found";
-    } else {
-        return $result;
-    }
-  }
-
-  public function addItem($SKU, $name, $price, $category)
-  {
-    $sql_query ="INSERT into products (SKU, name, price, category) VALUES ('$SKU', '$name', '$price', '$category');";
-    if (isset($_POST['save'])) {
-      if ($this->connect->query($sql_query) === FALSE) {
-          echo 'Error: '. $sql_query."<br>".$this->connect->error;
-        }
-        else {
-          
-      }
-    }
-  }
-
-  public function addFurniture($SKU, $height, $width, $length)
-  {
-    
-    $sql_query ="INSERT into furniture (SKU, height, width, length) VALUES ('$SKU', '$height', '$width', '$length');";
-    if (isset($_POST['save'])) {
-      if ($this->connect->query($sql_query) === FALSE) {
-          echo 'Error: '. $sql_query."<br>".$this->connect->error;
-        }
-        else {
-      }
-    }
-  }
-
-  public function addDisc($SKU, $size)
-  {
-    
-    $sql_query ="INSERT into disc (SKU, size) VALUES ('$SKU', '$size');";
-    if (isset($_POST['save'])) {
-      if ($this->connect->query($sql_query) === FALSE) {
-          echo 'Error: '. $sql_query."<br>".$this->connect->error;
-        }
-        else {
-
-      }
-    }
-  }
-
-
-  public function addBook($SKU, $weight)
-  {
-    
-    $sql_query ="INSERT into book (SKU, weight) VALUES ('$SKU', '$weight');";
-    if (isset($_POST['save'])) {
-      if ($this->connect->query($sql_query) === FALSE) {
-          echo 'Error: '. $sql_query."<br>".$this->connect->error;
-        }
-        else {
-
-      }
-    }
-  }
-
-
-  public function deleteItem()
-  {
-
-    $sql_query ="DELETE from products WHERE SKU=$SKU;";
-
-    if ($this->connect->query($sql_query) === TRUE) {
-      }
-      else {
-        echo 'Error: '. $this->connect->error;
-      }
+    return $result; 
   }
 }

@@ -7,12 +7,15 @@ class Furniture extends Product {
     public $length;
     
     
-    public function __construct($SKU, $height, $width, $length)
-    {     
-        $model = new Model();
-        $model->addFurniture($SKU, $height, $width, $length);
-
-        
+    public function __construct($sku, $name, $price, $category, $height, $width, $length)
+    {   
+        $this->sku = $sku;
+        $this->name = $name;
+        $this->price = $price;
+        $this->category = $category;
+        $this->height = $height;
+        $this->width = $width;
+        $this->length = $length;
     }
     
 }

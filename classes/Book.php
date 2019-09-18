@@ -4,9 +4,12 @@ class Book extends Product {
 
   public $weight;
     
-  public function __construct($SKU, $weight)
+  public function __construct($sku, $name, $price, $category, $weight)
   {
-    $model = new Model();
-    $model->addBook($SKU, $weight);
+    $this->sku = $sku;
+    $this->name = $name;
+    $this->price = $price;
+    $this->category = $category;
+    $this->weight = $weight;
   }
 }

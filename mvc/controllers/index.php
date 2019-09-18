@@ -5,43 +5,37 @@ require_once 'mvc/models/Model.php';
 
 class index extends Controller{
   public function __construct() 
-  {
+  { 
     $this->view = new View();
-    
-    $this->render_view('pages/index.php');
+    $this->model = new Model();
 
-    $model = new Model();
-    
+
+
     if (!isset($_POST["Ok"]) && empty($_POST["Ok"])) {
+      $data = $this->model->getData();
+      $this->render_view("pages/index.php", $data);
     } else {
-      $category = $_POST['typeswitch'];
-      switch ($category) {
-        case "All":
-          $model->getFurniture();
-          $model->getDisc();
-          $model->getBook();
-          break;
-        case "furniture":
-          $model->getFurniture();
-          break;
-        case "disc":
-          $model->getDisc();
-          break;
-        case "book":
-          $model->getBook();
-          break;          
-        default:
-          $model->getFurniture();
-          $model->getDisc();
-          $model->getBook();
-          break;
+      $category = $_POST['category'];
+      if (($category == "book") or ($category == "furniture") or ($category == "disc")){
+        $data = $this->model->filterData($category);
+        $this->render_view("pages/index.php", $data);
+      } else if ($category == "All") {
+        $data = $this->model->getData();
+        $this->render_view("pages/index.php", $data);
+      } else if ($category == "delete"){
+        if(!empty($_POST['checkbox'])){
+          foreach($_POST['checkbox'] as $SKU){
+            $this->model->deleteItem($SKU);
+            continue;
+          }
+          $data = $this->model->getData();
+          $this->render_view("pages/index.php", $data);
+        } else {
+          $data = $this->model->getData();
+          $this->render_view("pages/index.php", $data);
+        }
       }
-    }
 
-    if (!isset($_POST["Ok"]) && empty($_POST["Ok"]) and (!isset($_POST["checkbox"]) && empty($_POST["checkbox"]))){
-    } else {
-      $model->deleteItem();
     }
-
   }
 }

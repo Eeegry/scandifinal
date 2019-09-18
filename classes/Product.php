@@ -1,15 +1,16 @@
 <?php 
-include 'Furniture.php';
  class Product {
-    public $SKU;
+    public $sku;
     public $name;
     public $category;
     public $price;
 
-    public function __construct($SKU, $name, $price, $category)
+    public function __construct($sku, $name, $price, $category)
     {
-        $model = new Model();
-        $model->addItem($SKU, $name, $price, $category);
+        $this->$sku = $sku;
+        $this->$name = $name;
+        $this->$price = $price;
+        $this->$category = $category;
     }
 
    
